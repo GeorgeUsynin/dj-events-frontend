@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
 import Hedader from './Hedader';
+import Footer from './Footer';
 import styles from '../../styles/Layout.module.css';
 
 type TLayout = {
@@ -20,6 +21,7 @@ export default function Layout({ title, description, keywords, children }: TLayo
             </Head>
             <Hedader />
             <div className={styles.container}>{children}</div>
+            <Footer />
         </div>
     );
 }
