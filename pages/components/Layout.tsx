@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { ReactNode } from 'react';
+import Hedader from './Hedader';
 import styles from '../../styles/Layout.module.css';
 
 type TLayout = {
@@ -17,6 +18,7 @@ export default function Layout({ title, description, keywords, children }: TLayo
                 <meta name='description' content={description} />
                 <meta name='keywords' content={keywords} />
             </Head>
+            <Hedader />
             <div className={styles.container}>{children}</div>
         </div>
     );
