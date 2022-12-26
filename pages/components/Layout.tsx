@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 import Hedader from './Hedader';
 import Footer from './Footer';
-import styles from '../../styles/Layout.module.css';
+import styles from '@/styles/Layout.module.css';
 
 type TLayout = {
     title: string;

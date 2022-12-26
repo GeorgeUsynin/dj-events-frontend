@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import styles from '../../styles/Header.module.css';
-import { routes } from '../constants/routes';
+import styles from '@/styles/Header.module.css';
+import { routes } from '@/constants/routes';
 
 export default function Hedader() {
     return (

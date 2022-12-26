@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { routes } from '../constants/routes';
-import styles from '../../styles/Footer.module.css';
+import { routes } from '@/constants/routes';
+import styles from '@/styles/Footer.module.css';
 
 export default function Footer() {
     return (
