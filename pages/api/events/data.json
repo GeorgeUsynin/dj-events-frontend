@@ -10,7 +10,7 @@
             "date": "June 09, 2021",
             "time": "10:00 PM EST",
             "description": "Featuring deep cuts, party anthems and remixes nostalgic songs from two of the best decades of music with the very best music from the 90's and 2000's",
-            "image": "/images/sample/eventl.jpg"
+            "image": "/images/sample/event1.jpg"
         },
         {
             "id": "2",
@@ -22,7 +22,7 @@
             "date": "June 2, 2021",
             "time": "8:00 PM EST",
             "description": "It's looking more and more like we will be seeing events return in the summer! To celebrate this we are arranging a festival experience to say good bye to lock down! We will also be celebrating the fact Zoom Dance is one year old!",
-            "image": "iimages/sample/event2.jpg"
+            "image": "/images/sample/event2.jpg"
         },
         {
             "id": "3",
