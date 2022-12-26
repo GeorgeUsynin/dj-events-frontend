@@ -1,7 +1,10 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import Hedader from './Hedader';
 import Footer from './Footer';
+import Showcase from './Showcase';
+import { routes } from '@/constants/routes';
 import styles from '@/styles/Layout.module.css';
 
 type TLayout = {
@@ -12,6 +15,8 @@ type TLayout = {
 };
 
 export default function Layout({ title, description, keywords, children }: TLayout) {
+    const { pathname } = useRouter();
+
     return (
         <div>
             <Head>
@@ -20,6 +25,9 @@ export default function Layout({ title, description, keywords, children }: TLayo
                 <meta name='keywords' content={keywords} />
             </Head>
             <Hedader />
+
+            {pathname === routes.home && <Showcase />}
+
             <div className={styles.container}>{children}</div>
             <Footer />
         </div>

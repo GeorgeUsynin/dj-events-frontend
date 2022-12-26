@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["pages/components/*"],
+      "@/config/*": ["pages/config/*"],
       "@/constants/*": ["pages/constants/*"],
       "@/styles/*": ["styles/*"]
     }
