@@ -1,23 +1,9 @@
 import Layout from '@/components/Layout';
 import EventItem from '@/components/EventItem';
 import { API_URL } from '@/config/index';
+import { TEvent } from 'pages';
 
-export type TEvent = {
-    id: string;
-    name: string;
-    slug: string;
-    venue: string;
-    address: string;
-    performers: string;
-    date: string;
-    time: string;
-    description: string;
-    image: string;
-};
-
-type TEvents = TEvent[];
-
-export default function EventsPage({ events }: { events: TEvents }) {
+export default function EventsPage({ events }: { events: TEvent[] }) {
     return (
         <Layout>
             <h1>Events</h1>
@@ -32,7 +18,7 @@ export default function EventsPage({ events }: { events: TEvents }) {
 
 export async function getStaticProps() {
     const response = await fetch(`${API_URL}/api/events`);
-    const events: TEvents = await response.json();
+    const events: TEvent[] = await response.json();
 
     return {
         props: { events },
