@@ -3,21 +3,7 @@ import Link from 'next/link';
 import { routes } from './constants/routes';
 import EventItem from '@/components/EventItem';
 import { API_URL } from '@/config/index';
-
-export type TEvent = {
-    id: string;
-    name: string;
-    slug: string;
-    venue: string;
-    address: string;
-    performers: string;
-    date: string;
-    time: string;
-    description: string;
-    image: string;
-};
-
-type TEvents = TEvent[];
+import { TEvent, TStrapiResponseWithCloudinaryImage } from './types';
 
 export default function HomePage({ events }: { events: TEvents }) {
     const mapped_events = events.map(event => {
@@ -41,11 +27,18 @@ export default function HomePage({ events }: { events: TEvents }) {
 }
 
 export async function getStaticProps() {
-    const response = await fetch(`${API_URL}/api/events`);
-    const events: TEvents = await response.json();
+    const response = await fetch(`${API_URL}/api/events?sort=date:asc&pagination[limit]=3&populate=*`);
+    const strapi_events: TStrapiResponseWithCloudinaryImage<TEvent> = await response.json();
+    const events = strapi_events.data.map(evt => ({
+        ...evt.attributes,
+        id: evt.id,
+        image: evt.attributes.image.data.attributes.formats.thumbnail.url,
+    }));
 
     return {
-        props: { events: events.slice(0, 3) },
+        props: { events },
         revalidate: 1,
     };
 }
+
+export type TEvents = Awaited<ReturnType<typeof getStaticProps>>['props']['events'];

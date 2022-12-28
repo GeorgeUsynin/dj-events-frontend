@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { TEvent } from '../index';
+import { TEvents } from 'pages';
 import styles from '@/styles/EventItem.module.css';
 
-export default function EventItem({ event }: { event: TEvent }) {
+export default function EventItem({ event }: { event: TEvents[number] }) {
     return (
         <div className={styles.event}>
             <div className={styles.img}>

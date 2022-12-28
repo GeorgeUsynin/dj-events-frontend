@@ -1,9 +1,9 @@
 import Layout from '@/components/Layout';
 import EventItem from '@/components/EventItem';
 import { API_URL } from '@/config/index';
-import { TEvent } from 'pages';
+import { TEvent, TStrapiResponseWithCloudinaryImage } from '../types';
 
-export default function EventsPage({ events }: { events: TEvent[] }) {
+export default function EventsPage({ events }: { events: TEvents }) {
     return (
         <Layout>
             <h1>Events</h1>
@@ -17,11 +17,18 @@ export default function EventsPage({ events }: { events: TEvent[] }) {
 }
 
 export async function getStaticProps() {
-    const response = await fetch(`${API_URL}/api/events`);
-    const events: TEvent[] = await response.json();
+    const response = await fetch(`${API_URL}/api/events?sort=date:asc&populate=*`);
+    const strapi_events: TStrapiResponseWithCloudinaryImage<TEvent> = await response.json();
+    const events = strapi_events.data.map(evt => ({
+        ...evt.attributes,
+        id: evt.id,
+        image: evt.attributes.image.data.attributes.formats.thumbnail.url,
+    }));
 
     return {
         props: { events },
         revalidate: 1,
     };
 }
+
+type TEvents = Awaited<ReturnType<typeof getStaticProps>>['props']['events'];

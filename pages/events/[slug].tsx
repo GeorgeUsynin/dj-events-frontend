@@ -5,10 +5,11 @@ import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 import { API_URL } from '../config';
 import { routes } from '@/constants/routes';
 // import type { NextApiRequest, NextApiResponse } from 'next';
-import { TEvent } from 'pages';
+import { TEvents } from 'pages';
+import { TEvent, TStrapiResponseWithCloudinaryImage } from '../types';
 import styles from '@/styles/Event.module.css';
 
-const EventPage = ({ evt }: { evt: TEvent }) => {
+const EventPage = ({ evt }: { evt: TEvents[number] }) => {
     const deleteEvent = (e: React.MouseEvent<HTMLSpanElement>) => {
         console.log('delete event');
     };
@@ -48,8 +49,9 @@ const EventPage = ({ evt }: { evt: TEvent }) => {
 };
 
 export async function getStaticPaths() {
-    const response = await fetch(`${API_URL}/api/events`);
-    const events: TEvent[] = await response.json();
+    const response = await fetch(`${API_URL}/api/events?populate=*`);
+    const strapi_events: TStrapiResponseWithCloudinaryImage<TEvent> = await response.json();
+    const events = strapi_events.data.map(evt => ({ slug: evt.attributes.slug }));
 
     const paths = events.map(evt => ({ params: { slug: evt.slug } }));
 
@@ -60,8 +62,13 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }: { params: { slug: string } }) {
-    const response = await fetch(`${API_URL}/api/events/${slug}`);
-    const events = await response.json();
+    const response = await fetch(`${API_URL}/api/events/?filters[slug][$eq]=${slug}&populate=*`);
+    const strapi_events: TStrapiResponseWithCloudinaryImage<TEvent> = await response.json();
+    const events = strapi_events.data.map(evt => ({
+        ...evt.attributes,
+        id: evt.id,
+        image: evt.attributes.image.data.attributes.formats.large.url,
+    }));
 
     return {
         props: {
