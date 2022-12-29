@@ -15,6 +15,9 @@ export default function Hedader() {
                     <li>
                         <Link href={routes.events}>Events</Link>
                     </li>
+                    <li>
+                        <Link href={routes.add_event}>Add Event</Link>
+                    </li>
                 </ul>
             </nav>
         </header>

@@ -32,7 +32,9 @@ export async function getStaticProps() {
     const events = strapi_events.data.map(evt => ({
         ...evt.attributes,
         id: evt.id,
-        image: evt.attributes.image.data.attributes.formats.thumbnail.url,
+        image: evt.attributes.image.data
+            ? evt.attributes.image.data.attributes.formats.thumbnail.url
+            : '/images/event-default.png',
     }));
 
     return {

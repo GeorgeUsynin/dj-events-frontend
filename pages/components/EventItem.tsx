@@ -8,7 +8,7 @@ export default function EventItem({ event }: { event: TEvents[number] }) {
         <div className={styles.event}>
             <div className={styles.img}>
                 <Image
-                    src={event.image ? event.image : 'images/event-default.png'}
+                    src={event.image ? event.image : '/images/event-default.png'}
                     alt='event_image'
                     width={170}
                     height={100}
