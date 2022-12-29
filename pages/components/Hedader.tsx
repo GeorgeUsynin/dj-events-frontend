@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Search from './Search';
 import styles from '@/styles/Header.module.css';
 import { routes } from '@/constants/routes';
 
@@ -8,6 +9,7 @@ export default function Hedader() {
             <div className={styles.logo}>
                 <Link href={routes.home}>DJ events</Link>
             </div>
+            <Search />
             <nav>
                 <ul>
                     <li>
