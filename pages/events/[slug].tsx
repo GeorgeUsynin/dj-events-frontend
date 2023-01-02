@@ -4,14 +4,32 @@ import Image from 'next/image';
 import { FaPencilAlt, FaTimes } from 'react-icons/fa';
 import { API_URL } from '../config';
 import { routes } from '@/constants/routes';
+import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 // import type { NextApiRequest, NextApiResponse } from 'next';
 import { TEvents } from 'pages';
 import { TEvent, TStrapiResponseWithCloudinaryImage } from '../types';
 import styles from '@/styles/Event.module.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EventPage = ({ evt }: { evt: TEvents[number] }) => {
-    const deleteEvent = (e: React.MouseEvent<HTMLSpanElement>) => {
-        console.log('delete event');
+    const router = useRouter();
+
+    const deleteEvent = async (e: React.MouseEvent<HTMLSpanElement>) => {
+        if (confirm('Are you sure you want to delete event?')) {
+            const response = await fetch(`${API_URL}/api/events/${evt.id}`, {
+                method: 'DELETE',
+            });
+
+            const { error } = await response.json();
+
+            if (!response.ok) {
+                toast.error(error.status === 404 ? `Event ${error.message}` : error.message);
+                return;
+            } else {
+                router.push(routes.events);
+            }
+        }
     };
 
     return (
@@ -29,6 +47,7 @@ const EventPage = ({ evt }: { evt: TEvents[number] }) => {
                     {new Date(evt.date).toLocaleDateString('en-US')} at {evt.time}
                 </span>
                 <h1>{evt.name}</h1>
+                <ToastContainer />
                 {evt.image && (
                     <div className={styles.image}>
                         <Image src={evt.image} alt='event_image' width={960} height={600} />
