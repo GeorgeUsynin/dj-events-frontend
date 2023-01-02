@@ -1,0 +1,39 @@
+.modal {
+    background: white;
+    width: 500px;
+    height: 600px;
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 100;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 25px;
+  }
+  
+  .body {
+    padding-top: 10px;
+  }
+  
+  .overlay {
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9998;
+    display: none;
+    overflow: hidden;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.overlay:not(:empty) {
+    display: flex;
+    opacity: 1;
+}

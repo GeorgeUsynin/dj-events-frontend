@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import moment from 'moment';
 import slugify from 'slugify';
 import { FaImage } from 'react-icons/fa';
@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Layout from '@/components/Layout';
 import Link from 'next/link';
 import Image from 'next/image';
+import Modal from '@/components/Modal';
 import { useRouter } from 'next/router';
 import { routes } from '@/constants/routes';
 import { API_URL } from '@/config/index';
@@ -27,6 +28,8 @@ export default function EditEventPage({ evt }: { evt: TStrapiData<TEvent> }) {
     const [image_preview, setImagePreview] = useState(
         evt.attributes.image.data ? evt.attributes.image.data.attributes.formats.thumbnail.url : null
     );
+
+    const modal_ref = useRef(null);
 
     const router = useRouter();
 
@@ -134,10 +137,14 @@ export default function EditEventPage({ evt }: { evt: TStrapiData<TEvent> }) {
             )}
 
             <div>
-                <button className='btn-secondary'>
+                <button className='btn-secondary' onClick={() => modal_ref.current.openModal()}>
                     <FaImage /> Set Image
                 </button>
             </div>
+
+            <Modal title='Upload image' ref={modal_ref}>
+                UPLOAD IMAGE
+            </Modal>
         </Layout>
     );
 }
