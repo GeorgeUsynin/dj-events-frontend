@@ -36,7 +36,7 @@ const EventPage = ({ evt }: { evt: TEvents[number] }) => {
         <Layout>
             <div className={styles.event}>
                 <div className={styles.controls}>
-                    <Link href={`events/edit/${evt.id}`}>
+                    <Link href={`edit/${evt.id}`}>
                         <FaPencilAlt /> Edit Event
                     </Link>
                     <span className={styles.delete} onClick={deleteEvent}>

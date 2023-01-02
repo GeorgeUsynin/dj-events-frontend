@@ -50,13 +50,13 @@ type TStrapiAttributes<T> = T & {
     image: TImage;
 };
 
-type TStrapiData<T> = {
+export type TStrapiData<T> = {
     id: number;
     attributes: TStrapiAttributes<T>;
 };
 
 export type TStrapiResponseWithCloudinaryImage<T> = {
-    data: TStrapiData<T>[];
+    data: TStrapiData<T>[],
     meta: {
         pagination: {
             page: number;
